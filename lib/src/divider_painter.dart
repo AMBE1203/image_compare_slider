@@ -13,6 +13,9 @@ class _DividerPainter extends CustomPainter {
     required this.fillHandle,
     required this.handleSize,
     required this.handleRadius,
+    this.image,
+    this.h,
+    this.w,
   });
 
   final double position;
@@ -26,6 +29,10 @@ class _DividerPainter extends CustomPainter {
   final double handlePosition;
   final Size handleSize;
   final BorderRadius handleRadius;
+  final ui.Image? image;
+  final int? w;
+  final int? h;
+
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -64,20 +71,23 @@ class _DividerPainter extends CustomPainter {
       final circlePaint = Paint()
         ..color = handleColor
         ..style = PaintingStyle.fill;
-      final rect = Rect.fromCenter(
-        center: Offset(dx, dy),
-        width: handle.width,
-        height: handle.height,
-      );
+      if(image != null) {
+        canvas.drawImage(image!, Offset(dx-(w ?? 25), dy-(h ?? 19)), circlePaint);
+      }
+      // final rect = Rect.fromCenter(
+      //   center: Offset(dx, dy),
+      //   width: handle.width,
+      //   height: handle.height,
+      // );
 
-      if (fillHandle) canvas.drawRRect(handleRadius.toRRect(rect), circlePaint);
+      // if (fillHandle) canvas.drawRRect(handleRadius.toRRect(rect), circlePaint);
 
-      final handleOutlinePaint = Paint()
-        ..color = handleOutlineColor
-        ..strokeWidth = strokeWidth
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.butt;
-      canvas.drawRRect(handleRadius.toRRect(rect), handleOutlinePaint);
+      // final handleOutlinePaint = Paint()
+      //   ..color = handleOutlineColor
+      //   ..strokeWidth = strokeWidth
+      //   ..style = PaintingStyle.stroke
+      //   ..strokeCap = StrokeCap.butt;
+      // canvas.drawRRect(handleRadius.toRRect(rect), handleOutlinePaint);
     }
   }
 
