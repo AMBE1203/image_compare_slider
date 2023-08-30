@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
 
 part 'slider_clipper.dart';
 part 'divider_painter.dart';
@@ -56,6 +58,7 @@ class ImageCompareSlider extends StatefulWidget {
     this.handleFollowsPosition = false,
     this.direction = SliderDirection.leftToRight,
     this.photoRadius = BorderRadius.zero,
+    this.imageDrag,
   })  : portrait = direction == SliderDirection.topToBottom ||
             direction == SliderDirection.bottomToTop,
         assert(
@@ -130,6 +133,8 @@ class ImageCompareSlider extends StatefulWidget {
 
   /// Radius of the photo.
   final BorderRadiusGeometry photoRadius;
+
+  final ui.Image? imageDrag;
 
   // TODO(carlito): Implement these features.
   /// Whether to only handle drag events on the handle.
@@ -265,6 +270,7 @@ class _ImageCompareSliderState extends State<ImageCompareSlider> {
                 hideHandle: widget.hideHandle,
                 handlePosition: handlePosition,
                 handleRadius: widget.handleRadius,
+                image: widget.imageDrag,
               ),
               child: Opacity(opacity: 0, child: secondImage),
             ),
